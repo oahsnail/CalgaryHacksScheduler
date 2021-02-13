@@ -1,0 +1,1 @@
+Project for CalgaryHacks 2021 using Django and React
