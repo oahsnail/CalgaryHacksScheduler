@@ -4,11 +4,11 @@
     - if '' were to instead be something like 'home', we can then go to like domain.com/home/main, if main was a path 
     in api.urls
 - "python manage.py runserver" to start the app on django side.
-    - cd music_controller/ && python manage.py runserver
+    - cd scheduler/ && python manage.py runserver
     - make sure you're cd'd into the right directory 
 
 - start the thing on the react side
-    - cd music_controller/frontend && npm run dev 
+    - cd scheduler/frontend && npm run dev 
     - note that this is not a native command, it's a script in package.json
 
 - everytime we modify the database, we have to make migrations, essentially converting python models to actual sql tables 
