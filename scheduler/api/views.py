@@ -11,7 +11,7 @@ from .serializers import RoomSerializer
 # Create your views here.
 
 def helloWorldView(request):
-    return HttpResponse("<h1>Helloooo World</h1>")
+    return HttpResponse("<h1>Im a stinky poopy bum</h1>")
 
 
 class CreateRoomView(generics.CreateAPIView):
