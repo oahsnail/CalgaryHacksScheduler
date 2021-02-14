@@ -13,4 +13,5 @@ class RoomSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('userID', 'name', 'prefPreferedMaxConsecutiveTime')
+        fields = ('id', 'username', 'password',
+                  'PreferredMaxConsecutiveTime')
