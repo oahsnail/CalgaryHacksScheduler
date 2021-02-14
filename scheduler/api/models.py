@@ -40,8 +40,9 @@ class Room(models.Model):
 
 class User(models.Model):
     userID = models.IntegerField(null=False, unique=True)
-    name = models.CharField(
-        max_length=30, default='Default User', unique=False)
+    username = models.CharField(
+        max_length=30, default='Default User', unique=True)
+    password = models.CharField(max_length=100, null=False, unique=False)
     prefPreferedMaxConsecutiveTime = models.IntegerField(
         unique=False, validators=[MinValueValidator(0.0)])
 
