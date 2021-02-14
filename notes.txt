@@ -12,8 +12,8 @@
     - note that this is not a native command, it's a script in package.json
 
 - everytime we modify the database, we have to make migrations, essentially converting python models to actual sql tables 
-    - python manage.py makemigrations
-    - python manage.py migrate
+python manage.py makemigrations
+python manage.py migrate
     - https://realpython.com/django-migrations-a-primer/#the-problems-that-migrations-solve
     - python manage.py shell
 

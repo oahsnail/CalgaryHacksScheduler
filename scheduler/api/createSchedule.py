@@ -4,6 +4,7 @@ import math
 
 TIME_CHUNK = 15 #the size (in minutes) of the invidually alloted chunks of time
 
+
 def createSchedule(user):
     myTasks = api.models.Task.objects.filter(user = user).order_by('dueDate') #grabs only the users tasks ans filters them by due date
     lastTaskTime = findLastTask(user)
@@ -23,7 +24,8 @@ def createSchedule(user):
         elif task.taskLength > 0:
             tempTask = api.models.Task(id=api.models.generate_unique_task_id(), taskName = task.taskName, dueDate=(task.dueDate-datetime.timedelta(minutes=TIME_CHUNK)),user = task.user, taskLength = task.taskLength -TIME_CHUNK)
             regularTaskList.append(tempTask)
-            tempTask = api.models.Task(id=api.models.generate_unique_task_id(), taskName = task.taskName, dueDate=task.dueDate,user = task.user, taskLength = TIME_CHUNK)
+            tempTask = models.Task(id=models.generate_unique_task_id(
+            ), taskName=task.taskName, dueDate=task.dueDate, user=task.user, taskLength=TIME_CHUNK)
             subdividedTaskList.append(tempTask)
 
     for task in subdividedTaskList:
