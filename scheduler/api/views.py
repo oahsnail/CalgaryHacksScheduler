@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import generics
-from .models import Room
-from .serializers import RoomSerializer
+from .models import Room, User
+from .serializers import RoomSerializer, UserSerializer
 
 # A view function, or view for short, is a Python callable that takes a Web request and returns a Web response.
 # This callable is often a function, but can sometimes be a class too
@@ -19,11 +19,16 @@ class CreateRoomView(generics.CreateAPIView):
     serializer_class = RoomSerializer
 
 
-class ListRoomViews(generics.ListAPIView):
+class ListRoomView(generics.ListAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
 
-class DeleteRoomViews(generics.DestroyAPIView):
-    queryset = Room.objects.all()
-    serializer_class = RoomSerializer
+class CreateUserView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class ListUserView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

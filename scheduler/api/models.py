@@ -1,6 +1,7 @@
 from django.db import models
 import string
 import random
+from django.core.validators import MinValueValidator
 
 # Create your models here.
 # a model is basicaly a sql table, but django specific abstraction
@@ -34,3 +35,11 @@ class Room(models.Model):
                 # or alternatively: if(not Room.objects.filter(code=code).exists():)
                 break
         return code
+
+
+class User(models.Model):
+    userID = models.IntegerField(null=False, unique=True)
+    name = models.CharField(
+        max_length=30, default='Default User', unique=False)
+    prefPreferedMaxConsecutiveTime = models.IntegerField(
+        unique=False, validators=[MinValueValidator(0.0)])
