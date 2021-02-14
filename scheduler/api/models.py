@@ -48,6 +48,15 @@ def createNewTask(taskName, dueDate, user):
     return task
 
 
+def createNewFixedTask(taskName, startTime, endTime, user):
+
+    fixedtask = FixedTask(taskName=taskName, startTime=startTime,
+                          endTime=endTime, user=user)
+    fixedtask.save(force_insert=True)
+
+    return fixedtask
+
+
 def generate_unique_user_id():
     length = 6
     while True:
@@ -83,12 +92,13 @@ class Task(models.Model):
     # taskID = models.IntegerField(null=False, unique=True)
     taskName = models.CharField(max_length=30, default="task")
     dueDate = models.DateTimeField()
+    taskLength = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class FixedTask(models.Model):
     # fixedtaskID = models.IntegerField(null=False, unique=True)
-    taskName = models.CharField(max_length=30, default="task")
+    taskName = models.CharField(max_length=30, default="fixedtask")
     startTime = models.DateTimeField()
     endTime = models.DateTimeField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
