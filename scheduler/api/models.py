@@ -58,12 +58,22 @@ def createNewFixedTask(taskName, startTime, endTime, user):
 
 
 def generate_unique_user_id():
-    length = 6
+
     while True:
         code = int(uuid4())
-        if(not User.objects.filter(userID=code).exists()):
+        if(not User.objects.filter(id=code).exists()):
             break
     return code
+
+
+def generate_unique_task_id():
+
+    while True:
+        code = int(str(int(uuid4()))[0:6])
+        if(not Task.objects.filter(id=code).exists()):
+            break
+    return code
+
 
 
 class Room(models.Model):
