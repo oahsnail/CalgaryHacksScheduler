@@ -92,6 +92,7 @@ class Task(models.Model):
     # taskID = models.IntegerField(null=False, unique=True)
     taskName = models.CharField(max_length=30, default="task")
     dueDate = models.DateTimeField()
+    taskLength = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
