@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import HomePage from './HomePage';
+import TaskList from './TaskList'
+import TaskPartitions from './TaskPartitions'
+
 
 export default class App extends Component {
     constructor(props) {
@@ -10,13 +13,13 @@ export default class App extends Component {
 
     render() {
         return (<div>
-            <HomePage> </HomePage>
+            <TaskPartitions></TaskPartitions>
             <h1>this page was made by {this.props.name} the wise</h1>
         </div>);
 
 
 
-        // equivalently: return <HomePage/>;
+        // equivalently: return <HomePage/>; 
         // return 
     }
 }
