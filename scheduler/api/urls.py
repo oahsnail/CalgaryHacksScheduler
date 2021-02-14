@@ -6,5 +6,6 @@ urlpatterns = [
     path('createuser', CreateUserView.as_view()),
     path('listrooms', ListRoomView.as_view()),
     path('listusers', ListUserView.as_view()),
-    path('listtasks', ListTaskView.as_view())
+    path('listtasks', ListTaskView.as_view()),
+    path('listfixedtasks', ListFixedTaskView.as_view())
 ]
