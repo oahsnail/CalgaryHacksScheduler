@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import generics
-from .models import Room, User
-from .serializers import RoomSerializer, UserSerializer
+from .models import Room, User, Task
+from .serializers import RoomSerializer, UserSerializer, TaskSerializer
 
 # A view function, or view for short, is a Python callable that takes a Web request and returns a Web response.
 # This callable is often a function, but can sometimes be a class too
@@ -32,3 +32,8 @@ class CreateUserView(generics.CreateAPIView):
 class ListUserView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class ListTaskView(generics.ListAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer

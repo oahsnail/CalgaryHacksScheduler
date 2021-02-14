@@ -1,5 +1,6 @@
 import random
 import string
+import datetime
 from uuid import uuid4
 
 from django.core.validators import MinValueValidator
@@ -34,15 +35,17 @@ def deleteFixedTask(id):
 def createNewUser(username, password, PreferredMaxConsecutiveTime):
     user = User.objects.create(
         username=username, password=password, PreferredMaxConsecutiveTime=PreferredMaxConsecutiveTime)
+    print(type(user))
 
     return user
 
 
-# def createNewTask(taskName, dueDate, user):
-#     task = Task.objects.create(
-#         taskName=taskName, dueDate=dueDate, user=user)
+def createNewTask(taskName, dueDate, user):
 
-#     return task
+    task = Task(taskName=taskName, dueDate=dueDate, user=user)
+    task.save(force_insert=True)
+
+    return task
 
 
 def generate_unique_user_id():
@@ -80,7 +83,7 @@ class Task(models.Model):
     # taskID = models.IntegerField(null=False, unique=True)
     taskName = models.CharField(max_length=30, default="task")
     dueDate = models.DateTimeField()
-    userID = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class FixedTask(models.Model):
@@ -88,4 +91,4 @@ class FixedTask(models.Model):
     taskName = models.CharField(max_length=30, default="task")
     startTime = models.DateTimeField()
     endTime = models.DateTimeField()
-    userID = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
