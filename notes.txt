@@ -16,3 +16,14 @@
     - python manage.py migrate
     - https://realpython.com/django-migrations-a-primer/#the-problems-that-migrations-solve
     - python manage.py shell
+
+querying stuff:
+from api import models
+from api.models import deleteUser 
+from api.models import createNewUser 
+from api.models import createNewTask
+import datetime
+models.User.objects.all()
+x = datetime.datetime(2020, 5, 17)
+createNewTask("kill joey", x, models.User.objects.filter(username="name")[0])
+createNewUser('name', 'pwd', 21)

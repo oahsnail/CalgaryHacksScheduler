@@ -1,6 +1,6 @@
 # translate model into json
 from rest_framework import serializers
-from .models import Room, User
+from .models import *
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -13,4 +13,19 @@ class RoomSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('userID', 'name', 'prefPreferedMaxConsecutiveTime')
+        fields = ('id', 'username', 'password',
+                  'PreferredMaxConsecutiveTime')
+
+
+class TaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ('id', 'taskName', 'dueDate',
+                  'user')
+
+
+class FixedTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FixedTask
+        fields = ('id', 'taskName', 'startTime', 'endTime',
+                  'user')

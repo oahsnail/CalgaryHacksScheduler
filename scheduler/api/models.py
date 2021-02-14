@@ -1,7 +1,10 @@
-from django.db import models
-import string
 import random
+import string
+import datetime
+from uuid import uuid4
+
 from django.core.validators import MinValueValidator
+from django.db import models
 
 # Create your models here.
 # a model is basicaly a sql table, but django specific abstraction
@@ -14,6 +17,55 @@ from django.core.validators import MinValueValidator
 
 
 # test model, not a actual one we use
+
+def deleteTask(id):
+    Task.objects.filter(id=id).delete()
+
+
+def deleteUser(id):
+    User.objects.filter(id=id).delete()
+
+
+def deleteFixedTask(id):
+    FixedTask.objects.filter(id=id).delete()
+
+
+# returned user would have id: user.id by default
+# can get things like password by just calling user.password
+def createNewUser(username, password, PreferredMaxConsecutiveTime):
+    user = User.objects.create(
+        username=username, password=password, PreferredMaxConsecutiveTime=PreferredMaxConsecutiveTime)
+    print(type(user))
+
+    return user
+
+
+def createNewTask(taskName, dueDate, user):
+
+    task = Task(taskName=taskName, dueDate=dueDate, user=user)
+    task.save(force_insert=True)
+
+    return task
+
+
+def createNewFixedTask(taskName, startTime, endTime, user):
+
+    fixedtask = FixedTask(taskName=taskName, startTime=startTime,
+                          endTime=endTime, user=user)
+    fixedtask.save(force_insert=True)
+
+    return fixedtask
+
+
+def generate_unique_user_id():
+    length = 6
+    while True:
+        code = int(uuid4())
+        if(not User.objects.filter(userID=code).exists()):
+            break
+    return code
+
+
 class Room(models.Model):
     # unique room code
     code = models.CharField(max_length=8, default="", unique=True)
@@ -26,37 +78,27 @@ class Room(models.Model):
     # time the room is created, auto_now_add is a DateTimeField specific argument, does what you'd expect
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def generate_unique_code(self):
-        length = 6
-        while True:
-            code = ''.join(random.choices(string.ascii_uppercase, k=length))
-            # this is actually kind of a query, learn more and compare to SQL here:
-            # https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.query.QuerySet.count
-            if Room.objects.filter(code=code).count() == 0:
-                # or alternatively: if(not Room.objects.filter(code=code).exists():)
-                break
-        return code
-
 
 class User(models.Model):
-    userID = models.IntegerField(null=False, unique=True)
+    # userID = models.IntegerField(null=False, unique=True)
     username = models.CharField(
         max_length=30, default='Default User', unique=True)
     password = models.CharField(max_length=100, null=False, unique=False)
-    prefPreferedMaxConsecutiveTime = models.IntegerField(
+    PreferredMaxConsecutiveTime = models.IntegerField(
         unique=False, validators=[MinValueValidator(0.0)])
 
 
 class Task(models.Model):
-    taskID = models.IntegerField(null=False, unique=True)
+    # taskID = models.IntegerField(null=False, unique=True)
     taskName = models.CharField(max_length=30, default="task")
     dueDate = models.DateTimeField()
-    userID = models.ForeignKey("task", on_delete=models.CASCADE)
+    taskLength = models.IntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class FixedTask(models.Model):
-    fixedtaskID = models.IntegerField(null=False, unique=True)
-    taskName = models.CharField(max_length=30, default="task")
+    # fixedtaskID = models.IntegerField(null=False, unique=True)
+    taskName = models.CharField(max_length=30, default="fixedtask")
     startTime = models.DateTimeField()
     endTime = models.DateTimeField()
-    userID = models.ForeignKey("task", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
