@@ -1,2 +1,4 @@
 node_modules/
 __pycache__
+scheduler\scheduler\__pycache__
+scheduler\api\migrations\__pycache__
