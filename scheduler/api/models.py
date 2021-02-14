@@ -13,6 +13,7 @@ from django.core.validators import MinValueValidator
 # basic rule: fat models, and thin views.
 
 
+# test model, not a actual one we use
 class Room(models.Model):
     # unique room code
     code = models.CharField(max_length=8, default="", unique=True)
@@ -43,3 +44,18 @@ class User(models.Model):
         max_length=30, default='Default User', unique=False)
     prefPreferedMaxConsecutiveTime = models.IntegerField(
         unique=False, validators=[MinValueValidator(0.0)])
+
+
+class Task(models.Model):
+    taskID = models.IntegerField(null=False, unique=True)
+    taskName = models.CharField(max_length=30, default="task")
+    dueDate = models.DateTimeField()
+    userID = models.ForeignKey("task", on_delete=models.CASCADE)
+
+
+class FixedTask(models.Model):
+    fixedtaskID = models.IntegerField(null=False, unique=True)
+    taskName = models.CharField(max_length=30, default="task")
+    startTime = models.DateTimeField()
+    endTime = models.DateTimeField()
+    userID = models.ForeignKey("task", on_delete=models.CASCADE)
